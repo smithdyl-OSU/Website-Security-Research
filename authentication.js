@@ -1,3 +1,61 @@
+function brokenLogin(email, password) {
+    /**
+     * A broken version of login which uses the bad practice of telling users
+     * why their login failed. Allows malicious attempts at cracking security.
+     * @param {string} email
+     * @param {string} password
+     * @return {object} - either the user's information, retrieved from the database,
+     *                      or an error statement in the event of failed login
+     * @return {int} - the HTML status code associated with the login attempt
+     */
+
+    // Query database for user with supplied email
+    result = {};
+    if (Object.keys(result).length === 0) {
+        return { error: "Login failed: No user with this email exists" }, 404;
+    }
+    if (result.email === email || result.password !== password) {
+        return { error: `Login for user ${result.email}: invalid password` }, 403;
+    }
+
+    return result, 200;
+}
+
+function login(email, password) {
+    /**
+     * Checks supplied login information against database for a match.
+     * @param {string} email
+     * @param {string} password
+     * @return {object} - either the user's information, retrieved from the database,
+     *                      or an error statement in the event of failed login
+     */
+
+    // Query database for user with supplied email
+    result = {};
+    if (Object.keys(result).length === 0) {
+        return { error: "Login failed: Invalid userID or password" }, 403;
+    }
+
+    return result, 200;
+}
+
+function brokenReg(email) {
+    /**
+     * A poorly designed registration process that leads to broken authentication.
+     * @param {string} email
+     * @return {bool} - true if registration successful, false otherwise
+     */
+
+    // Get collection of currently registered emails
+    const database = [];
+    if (database.includes(email)) {
+        return false;
+    }
+
+    // Assign standardized password to user?
+    return true;
+}
+
 function validateEmail(email) {
     /**
      * Checks if the string passed is a valid email.
