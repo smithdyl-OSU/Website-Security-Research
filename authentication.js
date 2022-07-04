@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 function brokenLogin(email, password) {
     /**
      * A broken version of login which uses the bad practice of telling users
@@ -33,6 +35,10 @@ function login(email, password) {
     // Query database for user with supplied email
     result = {};
     if (Object.keys(result).length === 0) {
+        return { error: "Login failed: Invalid userID or password" }, 403;
+    }
+
+    if (!compareHashes(password, result.password)) {
         return { error: "Login failed: Invalid userID or password" }, 403;
     }
 
@@ -105,6 +111,7 @@ function validatePassword(password, confirm) {
      * @param {string} password - User's requested password
      * @param {string} confirm - The user's password confirmation; should === password
      */
+
     // Password and Confirm Password sections do not match
     if (password !== confirm) {
         return false;
@@ -143,4 +150,54 @@ function validatePassword(password, confirm) {
     }
 
     return true;
+}
+
+function hashPassword(password) {
+    /**
+     * Hashes the provided password for secure storage.
+     * @param {string} password
+     * @return {string} - the hashed version of the supplied password
+     */
+
+    // Create the salt to be used in the hashing processes
+    const array = new Uint32Array(1);
+    const salt = String(crypto.getRandomValues(array)[0]);
+
+    // Hash the password and append to salt
+    const protectedForm = salt + protect(salt, password);
+
+    return protectedForm;
+}
+
+function compareHashes(password, protectedForm) {
+    /**
+     * Compares a supplied password against a hashed password. Hashes password
+     * using the same salt that protectedForm was hashed with and compares to 
+     * protectedForm to see if they are identical.
+     * @param {string} password - password used as login attempt
+     * @param {string} protectedForm - hashed password for account of login attempt
+     * @return {bool} - true if hashed password is a match with protectedForm, false otherwise
+     */
+
+    // Get protectedForm's salt using regex
+    const regex = new RegExp(/([0-9]*)(\1)/);
+    const salt = protectedForm.match(regex)[1];
+
+    // Develop new hash from salt and supplied password, compare to protectedForm
+    const hash = salt + protect(salt, password);
+    if (hash === protectedForm) {
+        return true;
+    }
+
+    return false;
+}
+
+function protect(salt, credential) {
+    /**
+     * Hashes the supplied credential using the provided salt
+     * @param {string} salt - the salt to be used for hashing
+     * @param {string} credential - the credential being hashed
+     * @return {string} - the hashed, protected version of credential appended to salt
+     */
+    return salt + crypto.pbkdf2Sync(credential, salt, 10000, 64, 'sha512').toString('hex');
 }
