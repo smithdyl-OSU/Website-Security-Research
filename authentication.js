@@ -1,16 +1,16 @@
 const crypto = require('crypto');
 
+/**
+ * A broken version of login which uses the bad practice of telling users
+ * why their login failed. Allows malicious attempts at cracking security.
+ * @param {string} email
+ * @param {string} password
+ * 
+ * @returns {object} result - either the user's information, retrieved from the database,
+ *                   or an error statement in the event of failed login
+ * @returns {int} - the HTML status code associated with the login attempt
+ */
 function brokenLogin(email, password) {
-    /**
-     * A broken version of login which uses the bad practice of telling users
-     * why their login failed. Allows malicious attempts at cracking security.
-     * @param {string} email
-     * @param {string} password
-     * @return {object} - either the user's information, retrieved from the database,
-     *                      or an error statement in the event of failed login
-     * @return {int} - the HTML status code associated with the login attempt
-     */
-
     // Query database for user with supplied email
     result = {};
     if (Object.keys(result).length === 0) {
@@ -23,15 +23,16 @@ function brokenLogin(email, password) {
     return result, 200;
 }
 
+/**
+ * Checks supplied login information against database for a match.
+ * @param {string} email - user's email
+ * @param {string} password - user's password
+ * 
+ * @returns {object} result - either the user's information, retrieved from the database,
+ *                   or an error statement in the event of failed login
+ * @returns {integer} - the HTML status code associated with the login attempt
+ */
 function login(email, password) {
-    /**
-     * Checks supplied login information against database for a match.
-     * @param {string} email
-     * @param {string} password
-     * @return {object} - either the user's information, retrieved from the database,
-     *                      or an error statement in the event of failed login
-     */
-
     // Query database for user with supplied email
     result = {};
     if (Object.keys(result).length === 0) {
@@ -45,13 +46,13 @@ function login(email, password) {
     return result, 200;
 }
 
+/**
+ * A poorly designed registration process that leads to broken authentication.
+ * @param {string} email - user's email
+ * 
+ * @returns {bool} - true if registration successful, false otherwise
+ */
 function brokenReg(email) {
-    /**
-     * A poorly designed registration process that leads to broken authentication.
-     * @param {string} email
-     * @return {bool} - true if registration successful, false otherwise
-     */
-
     // Get collection of currently registered emails
     const database = [];
     if (database.includes(email)) {
@@ -62,13 +63,13 @@ function brokenReg(email) {
     return true;
 }
 
+/**
+ * Checks if the string passed is a valid email.
+ * @param {string} email - user's email
+ * 
+ * @returns {bool} - true if valid email, false otherwise
+ */
 function validateEmail(email) {
-    /**
-     * Checks if the string passed is a valid email.
-     * @param {string} email
-     * @return {bool} - true if valid email, false otherwise
-     */
-
     // Establish the RegEx patterns needed to parse an email
     const specialChars = /@/;
     const localRegex = new RegExp(/.+(?=@)/);
@@ -105,13 +106,14 @@ function validateEmail(email) {
     return false;
 }
 
+/**
+ * Checks if the supplied password is confirmed and meets the security requirements.
+ * @param {string} password - User's requested password
+ * @param {string} confirm - The user's password confirmation; should === password
+ * 
+ * @returns {bool} - true if the password meets security standards, false if not or if unconfirmed
+ */
 function validatePassword(password, confirm) {
-    /**
-     * Checks if the supplied password is confirmed and meets the security requirements.
-     * @param {string} password - User's requested password
-     * @param {string} confirm - The user's password confirmation; should === password
-     */
-
     // Password and Confirm Password sections do not match
     if (password !== confirm) {
         return false;
@@ -152,13 +154,13 @@ function validatePassword(password, confirm) {
     return true;
 }
 
+/**
+ * Hashes the provided password for secure storage.
+ * @param {string} password - user's registered password
+ * 
+ * @returns {string} protectedForm - the hashed version of the supplied password
+ */
 function hashPassword(password) {
-    /**
-     * Hashes the provided password for secure storage.
-     * @param {string} password
-     * @return {string} - the hashed version of the supplied password
-     */
-
     // Create the salt to be used in the hashing processes
     const array = new Uint32Array(1);
     const salt = String(crypto.getRandomValues(array)[0]);
@@ -169,16 +171,16 @@ function hashPassword(password) {
     return protectedForm;
 }
 
+/**
+ * Compares a supplied password against a hashed password. Hashes password
+ * using the same salt that protectedForm was hashed with and compares to 
+ * protectedForm to see if they are identical.
+ * @param {string} password - password used as login attempt
+ * @param {string} protectedForm - hashed password for account of login attempt
+ * 
+ * @returns {bool} - true if hashed password is a match with protectedForm, false otherwise
+ */
 function compareHashes(password, protectedForm) {
-    /**
-     * Compares a supplied password against a hashed password. Hashes password
-     * using the same salt that protectedForm was hashed with and compares to 
-     * protectedForm to see if they are identical.
-     * @param {string} password - password used as login attempt
-     * @param {string} protectedForm - hashed password for account of login attempt
-     * @return {bool} - true if hashed password is a match with protectedForm, false otherwise
-     */
-
     // Get protectedForm's salt using regex
     const regex = new RegExp(/([0-9]*)(\1)/);
     const salt = protectedForm.match(regex)[1];
@@ -192,12 +194,13 @@ function compareHashes(password, protectedForm) {
     return false;
 }
 
+/**
+ * Hashes the supplied credential using the provided salt
+ * @param {string} salt - the salt to be used for hashing
+ * @param {string} credential - the credential being hashed
+ * 
+ * @returns {string} - the hashed, protected version of credential appended to salt
+ */
 function protect(salt, credential) {
-    /**
-     * Hashes the supplied credential using the provided salt
-     * @param {string} salt - the salt to be used for hashing
-     * @param {string} credential - the credential being hashed
-     * @return {string} - the hashed, protected version of credential appended to salt
-     */
     return salt + crypto.pbkdf2Sync(credential, salt, 10000, 64, 'sha512').toString('hex');
 }
