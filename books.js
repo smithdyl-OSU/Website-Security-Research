@@ -10,7 +10,7 @@ module.exports = function () {
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.items = results;
+            context.books = results;
             complete();
         });
     }
@@ -27,9 +27,8 @@ module.exports = function () {
             callbackCount++;
             if (callbackCount >= 1) {
                 res.render('books', context);
-                console.log(context)
+                // console.log(context)
             }
-
         }
     });
 
