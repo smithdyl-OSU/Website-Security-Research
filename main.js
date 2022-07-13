@@ -27,6 +27,42 @@ app.use('/books', require('./books.js'));
 
 app.use('/', express.static('public'));
 
+// Load the Home page
+app.get('/', function (req, res) {
+  let context = {};
+  res.render('index', context);
+});
+
+// Load login page
+app.get('/login', function (req, res) {
+  let context = {};
+  res.render('login', context);
+  });
+
+// Load registration page
+app.get('/register', function (req, res) {
+  let context = {};
+  res.render('register', context);
+  });
+
+// Load search results page
+app.get('/search', function (req, res) {
+  let context = {};
+  res.render('search', context);
+  });
+
+// Load user profile page
+app.get('/user_portal', function (req, res) {
+  let context = {};
+  res.render('user_portal', context);
+  });
+
+// Load admin profile page
+app.get('/admin', function (req, res) {
+  let context = {};
+  res.render('admin', context);
+  });
+
 app.use(function (req, res) {
   res.status(404);
   res.render('404');

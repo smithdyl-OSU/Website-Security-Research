@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/style.css">
-    <title>Library Home Page</title>
-</head>
+<html>
 <body>
     <nav class="nav-bar">
-        <p><a href="login.html" id="nav-link">My Account</a></p>
+        <p><a href="/login" id="nav-link">My Account</a></p>
     </nav>
     <div class="main-bar">
         <div>
-            <form>
+            <form action="/search" method="get">
                 <h1 id="search-title">Search Catalog</h1>
                 <input type="text" name="request" value="" size="20" maxlength="128" placeholder="Search books here" id="search-bar">
                 <input type="submit" value="search" id="search-btn">
