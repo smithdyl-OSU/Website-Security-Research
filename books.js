@@ -31,11 +31,14 @@ module.exports = function () {
         });
     }
 
+    // axios example call to backend
+
     const get_book_test = async (id) => {
         const resp = await axios.get('http://localhost:3000/books/' + id)
         console.log(resp.data);
         return(resp.data);
        };
+
     /*Display all Books. */
 
     router.get('/test',  async function(req, res) {
@@ -43,6 +46,8 @@ module.exports = function () {
         console.log(book);
         res.send(book);
     });
+
+    
     router.get('/', function (req, res) {
         var callbackCount = 0;
         var context = {};
