@@ -1,29 +1,6 @@
 const crypto = require('crypto');
 
 /**
- * A broken version of login which uses the bad practice of telling users
- * why their login failed. Allows malicious attempts at cracking security.
- * @param {string} email
- * @param {string} password
- * 
- * @returns {object} result - either the user's information, retrieved from the database,
- *                   or an error statement in the event of failed login
- * @returns {int} - the HTML status code associated with the login attempt
- */
-function brokenLogin(email, password) {
-    // Query database for user with supplied email
-    result = {};
-    if (Object.keys(result).length === 0) {
-        return { error: "Login failed: No user with this email exists" }, 404;
-    }
-    if (result.email === email || result.password !== password) {
-        return { error: `Login for user ${result.email}: invalid password` }, 403;
-    }
-
-    return result, 200;
-}
-
-/**
  * Checks supplied login information against database for a match.
  * @param {string} email - user's email
  * @param {string} password - user's password
@@ -34,12 +11,12 @@ function brokenLogin(email, password) {
  */
 function login(email, password) {
     // Query database for user with supplied email
-    result = {};
+    const result = {};
     if (Object.keys(result).length === 0) {
         return { error: "Login failed: Invalid userID or password" }, 403;
     }
 
-    if (!compareHashes(password, result.password)) {
+    if (!compare_hashes(password, result.password)) {
         return { error: "Login failed: Invalid userID or password" }, 403;
     }
 
@@ -52,7 +29,7 @@ function login(email, password) {
  * 
  * @returns {bool} - true if registration successful, false otherwise
  */
-function brokenReg(email) {
+function broken_reg(email) {
     // Get collection of currently registered emails
     const database = [];
     if (database.includes(email)) {
@@ -69,22 +46,22 @@ function brokenReg(email) {
  * 
  * @returns {bool} - true if valid email, false otherwise
  */
-function validateEmail(email) {
+function validate_email(email) {
     // Establish the RegEx patterns needed to parse an email
-    const specialChars = /@/;
-    const localRegex = new RegExp(/.+(?=@)/);
-    const domainRegex = new RegExp(/(?<=@).+/);
+    const special_chars = /@/;
+    const local_regex = new RegExp(/.+(?=@)/);
+    const domain_regex = new RegExp(/(?<=@).+/);
 
     // Test if the email contains @.
-    if (specialChars.test(email)) {
+    if (special_chars.test(email)) {
         // Match the local and domain names and determine their lengths
-        const local = email.match(localRegex);
-        const domain = email.match(domainRegex);
-        const localSize = local[0].length;
-        const domainSize = domain[0].length;
+        const local = email.match(local_regex);
+        const domain = email.match(domain_regex);
+        const local_size = local[0].length;
+        const domain_size = domain[0].length;
 
         // Check that local and domain names are in appropriate size ranges
-        if (localSize > 0 && localSize <= 64 && domainSize > 0 && domainSize <= 255) {
+        if (local_size > 0 && local_size <= 64 && domain_size > 0 && domain_size <= 255) {
             // Normalize address and check if unique in database
             /*
              ****************************************************************************
@@ -113,7 +90,7 @@ function validateEmail(email) {
  * 
  * @returns {bool} - true if the password meets security standards, false if not or if unconfirmed
  */
-function validatePassword(password, confirm) {
+function validate_password(password, confirm) {
     // Password and Confirm Password sections do not match
     if (password !== confirm) {
         return false;
@@ -126,16 +103,15 @@ function validatePassword(password, confirm) {
 
     // Build RegEx patterns to test complexity of the password 
     let complexity = 0;
-    const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\s]/;
-    const upper = /[A-Z]/;
-    const lower = /[a-z]/;
+    const special_chars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\s]/;
+    const upper_case = /[A-Z]/;
+    const lower_case = /[a-z]/;
     const numbers = /[0-9]/
-    const tests = [specialChars, upper, lower, numbers];
+    const tests = [special_chars, upper_case, lower_case, numbers];
 
     // Test each complexity condition
     for (let test of tests) {
         if (test.test(password)) {
-            console.log(test);
             complexity += 1;
         }
     }
@@ -158,36 +134,36 @@ function validatePassword(password, confirm) {
  * Hashes the provided password for secure storage.
  * @param {string} password - user's registered password
  * 
- * @returns {string} protectedForm - the hashed version of the supplied password
+ * @returns {string} protected_form - the hashed version of the supplied password
  */
-function hashPassword(password) {
+function hash_password(password) {
     // Create the salt to be used in the hashing processes
     const array = new Uint32Array(1);
     const salt = String(crypto.getRandomValues(array)[0]);
 
     // Hash the password and append to salt
-    const protectedForm = salt + protect(salt, password);
+    const protected_form = salt + protect(salt, password);
 
-    return protectedForm;
+    return protected_form;
 }
 
 /**
  * Compares a supplied password against a hashed password. Hashes password
- * using the same salt that protectedForm was hashed with and compares to 
- * protectedForm to see if they are identical.
+ * using the same salt that protected_form was hashed with and compares to 
+ * protected_form to see if they are identical.
  * @param {string} password - password used as login attempt
- * @param {string} protectedForm - hashed password for account of login attempt
+ * @param {string} protected_form - hashed password for account of login attempt
  * 
- * @returns {bool} - true if hashed password is a match with protectedForm, false otherwise
+ * @returns {bool} - true if hashed password is a match with protected_form, false otherwise
  */
-function compareHashes(password, protectedForm) {
-    // Get protectedForm's salt using regex
+function compare_hashes(password, protected_form) {
+    // Get protected_form's salt using regex
     const regex = new RegExp(/([0-9]*)(\1)/);
-    const salt = protectedForm.match(regex)[1];
+    const salt = protected_form.match(regex)[1];
 
-    // Develop new hash from salt and supplied password, compare to protectedForm
+    // Develop new hash from salt and supplied password, compare to protected_form
     const hash = salt + protect(salt, password);
-    if (hash === protectedForm) {
+    if (hash === protected_form) {
         return true;
     }
 
