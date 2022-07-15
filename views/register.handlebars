@@ -1,11 +1,12 @@
 <html>
+
 <body>
     <h1 id="login-title">Create New Account</h1>
     <div class="form-background">
-        <form action="/users" method="POST">
-            <input type="text" name="create-username" id="create-username" placeholder="Create Username">
-            <input type="text" name="email" id="email" placeholder="Email">
-            <input type="text" name="create-password" id="create-password" placeholder="Create Password">
+        <form action="/newuser" method="POST">
+            <input type="text" name="createUsername" id="createUsername" placeholder="Create Username" required>
+            <input type="text" name="email" id="email" placeholder="Email" required>
+            <input type="text" name="createPassword" id="createPassword" placeholder="Create Password" required>
             <button>Submit</button>
         </form>
     </div>
@@ -14,4 +15,5 @@
         <a href="#">Click for hint</a>
     </div>
 </body>
+
 </html>

@@ -4,6 +4,7 @@
 */
 
 var express = require('express');
+var session = require('express-session');
 var mysql = require('./dbcon.js');
 var bodyParser = require('body-parser');
 
@@ -16,6 +17,7 @@ var handlebars = require('express-handlebars').create({
 
 app.engine('handlebars', handlebars.engine);
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({ secret: 'secret' }));
 app.use('/static', express.static('public'));
 app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]);
@@ -27,23 +29,33 @@ app.use('/books', require('./books.js'));
 
 app.use('/', express.static('public'));
 
-document.cookie = null;
-
 // Load the Home page
 app.get('/', function (req, res) {
   let context = {};
+  // Establish session
+  let sess = req.session;
+  if (!sess.email || !sess.username) {
+    sess.email;
+    sess.username;
+  }
   res.render('index', context);
 });
 
 // Load login page
-app.get('/login', function (req, res) {
+app.get('/account', function (req, res) {
   let context = {};
-  res.render('login', context);
+  let sess = req.session;
+  if (sess.email && sess.username) {
+    res.render('admin', context);
+  } else {
+    res.render('login', context);
+  }
 });
 
 // Authenticate login
 app.post('/auth', function (req, res) {
   // Get username and password from request body
+  let sess = req.session;
   let username = req.body.username;
   let password = req.body.password;
   if (username && password) {
@@ -52,8 +64,9 @@ app.post('/auth', function (req, res) {
       if (error) throw error;
       // User exists, authenticated
       if (results.length > 0) {
-        // req.session.loggedin = true;
-        // req.session.username = username;
+        sess.username = results[0].user_name;
+        sess.email = results[0].user_email;
+        console.log(sess.username, sess.email);
         console.log('success');
         res.redirect('/');
       } else {
@@ -69,10 +82,39 @@ app.post('/auth', function (req, res) {
   }
 });
 
+// Logout user
+app.get('/logout', function (req, res) {
+  // Discard user's session
+  req.session.destroy((err) => {
+    if (err) {
+      return console.log(err);
+    }
+    res.redirect('/');
+  });
+});
+
 // Load registration page
 app.get('/register', function (req, res) {
   let context = {};
   res.render('register', context);
+});
+
+// Register user
+app.post('/newuser', function (req, res) {
+  let username = req.body.createUsername;
+  let email = req.body.email;
+  let password = req.body.createPassword;
+  console.log(typeof (username));
+  if (username && email && password) {
+    // Submit user to the database
+    let values = [username, password, email];
+    mysql.pool.query('INSERT INTO mydb.users (user_name, user_pw, user_email) VALUES (?)', [values], function (error, results, fields) {
+      if (error) throw error;
+      console.log(results);
+      console.log("Record inserted")
+      res.redirect('/');
+    });
+  }
 });
 
 // Load search results page
