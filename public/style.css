@@ -229,3 +229,11 @@ button {
     text-align: center;
     width: 800px;
 }
+
+.results-table td, th {
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+    table-layout: auto;
+    text-align: left;
+    width: 100%;
+}

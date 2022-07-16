@@ -1,10 +1,14 @@
 <html>
+{{#each foo}}
+{{this}}
+{{/each}}
+
 <body>
     <nav class="nav-bar">
         <p><a href="/index" id="nav-link">Home</a></p>
     </nav>
     <div class="results-wrapper">
-        <form>
+        <form action="/search" method="GET" name="search_book">
             <h1 id="search-title">Search Catalog</h1>
             <input type="text" name="request" value="" size="20" maxlength="128" placeholder="Search books here" id="search-bar">
             <input type="submit" value="search" id="search-btn">
@@ -12,7 +16,25 @@
         <h2>Search Results</h2>
     </div>
     <div class="results">
+        {{#if search}}
+        <table class="results-table">
+        <tbody>
+            <thead>
+                <th>Book Title</th>
+                <th>Qty Available</th>
+            </thead>
 
+            {{#each search}}
+            <tr>
+                <td>{{book_title}}</td>
+                <td>{{book_qty}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+        </table>
+        {{else}}
+        <p>No results found</p>
+        {{/if}}
     </div>
 </body>
 </html>

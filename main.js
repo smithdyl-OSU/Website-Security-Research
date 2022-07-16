@@ -24,6 +24,7 @@ app.use(express.static('static'));
 app.use('/transactions', require('./transactions.js'));
 app.use('/users', require('./users.js'));
 app.use('/books', require('./books.js'));
+app.use('/search', require('./search.js'));
 
 app.use('/', express.static('public'));
 
@@ -43,12 +44,6 @@ app.get('/login', function (req, res) {
 app.get('/register', function (req, res) {
   let context = {};
   res.render('register', context);
-  });
-
-// Load search results page
-app.get('/search', function (req, res) {
-  let context = {};
-  res.render('search', context);
   });
 
 // Load user profile page
