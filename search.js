@@ -10,11 +10,7 @@ module.exports = function () {
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            if (results.length == 0) {
-                console.log("empty")
-            }
-            context.search = results;
-            
+            context.search = results; 
             complete();
         });
     }
@@ -23,14 +19,13 @@ module.exports = function () {
     router.get('/', function (req, res) {
         var keyword = req.query.request;
         var callbackCount = 0;
-        let context = {};
+        var context = {};
         var mysql = req.app.get('mysql');
         get_results(res, keyword, mysql, context, complete);
         function complete() {
             callbackCount++;
             if (callbackCount >= 1) {
                 res.render('search', context);
-                console.log(context)
             }
         }
     });

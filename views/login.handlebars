@@ -16,7 +16,22 @@
     </div>
     <div class="objective">
         <h2>Objective:</h2>
-        <a href="#">Click for hint</a>
+        <button class="hint-btn" onclick="openForm()">Click for hint</button>
     </div>
+    <div class="popup-container">
+      <div class="hint" id="hint_popup">
+        <p>Type hints here</p>
+        <button class="hint-btn" onclick="closeForm()">Close</button>
+      </div>
+    </div>
+    <script>
+        function openForm() {
+            document.getElementById("hint_popup").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("hint_popup").style.display = "none";
+        }
+    </script>
 </body>
 </html>

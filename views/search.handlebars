@@ -3,6 +3,7 @@
 {{this}}
 {{/each}}
 
+
 <body>
     <nav class="nav-bar">
         <p><a href="/index" id="nav-link">Home</a></p>
@@ -17,7 +18,7 @@
     </div>
     <div class="results">
         {{#if search}}
-        <table class="results-table">
+        <table id="results-table">
         <tbody>
             <thead>
                 <th>Book Title</th>
@@ -36,5 +37,24 @@
         <p>No results found</p>
         {{/if}}
     </div>
+    <div class="objective">
+        <h2>Objective:</h2>
+        <button class="hint-btn" onclick="openForm()">Click for hint</button>
+    </div>
+    <div class="popup-container">
+      <div class="hint" id="hint_popup">
+        <p>Type hints here</p>
+        <button class="hint-btn" onclick="closeForm()">Close</button>
+      </div>
+    </div>
+    <script>
+        function openForm() {
+            document.getElementById("hint_popup").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("hint_popup").style.display = "none";
+        }
+    </script>
 </body>
 </html>
