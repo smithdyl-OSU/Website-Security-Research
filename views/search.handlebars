@@ -1,10 +1,15 @@
 <html>
+{{#each foo}}
+{{this}}
+{{/each}}
+
+
 <body>
     <nav class="nav-bar">
         <p><a href="/index" id="nav-link">Home</a></p>
     </nav>
     <div class="results-wrapper">
-        <form>
+        <form action="/search" method="GET" name="search_book">
             <h1 id="search-title">Search Catalog</h1>
             <input type="text" name="request" value="" size="20" maxlength="128" placeholder="Search books here" id="search-bar">
             <input type="submit" value="search" id="search-btn">
@@ -12,7 +17,44 @@
         <h2>Search Results</h2>
     </div>
     <div class="results">
+        {{#if search}}
+        <table id="results-table">
+        <tbody>
+            <thead>
+                <th>Book Title</th>
+                <th>Qty Available</th>
+            </thead>
 
+            {{#each search}}
+            <tr>
+                <td>{{book_title}}</td>
+                <td>{{book_qty}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+        </table>
+        {{else}}
+        <p>No results found</p>
+        {{/if}}
     </div>
+    <div class="objective">
+        <h2>Objective:</h2>
+        <button class="hint-btn" onclick="openForm()">Click for hint</button>
+    </div>
+    <div class="popup-container">
+      <div class="hint" id="hint_popup">
+        <p>Type hints here</p>
+        <button class="hint-btn" onclick="closeForm()">Close</button>
+      </div>
+    </div>
+    <script>
+        function openForm() {
+            document.getElementById("hint_popup").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("hint_popup").style.display = "none";
+        }
+    </script>
 </body>
 </html>

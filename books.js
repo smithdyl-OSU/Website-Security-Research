@@ -56,13 +56,35 @@ module.exports = function () {
         function complete() {
             callbackCount++;
             if (callbackCount >= 1) {
+                context.add = true;
+                context.modify = true;
                 res.render('books', context);
                 // console.log(context)
             }
         }
     });
 
+    /*Display add book form only*/
+    router.get('/add', function (req, res) {
+        var context = {};
+        context.add = true;
+        res.render('books', context);
+    });
 
+    /*Display books list only*/
+    router.get('/remove', function (req, res) {
+        var context = {};
+        context.modify = true;
+        var callbackCount = 0;
+        var mysql = req.app.get('mysql');
+        get_books(res, mysql, context, complete);
+        function complete() {
+            callbackCount++;
+            if (callbackCount >= 1) {
+                res.render('books', context);
+            }
+        }
+    });
 
     router.get('/:id', function (req, res) {
         callbackCount = 0;

@@ -5,16 +5,34 @@
     </nav>
     <div class="wrapper">
         <h2>Admin Portal</h2>
-        <a href=""><div class="admin-btn">Search loaned books</div></a>
-        <a href=""><div class="admin-btn">Search for a user</div></a>
+        <a href="/transactions"><div class="admin-btn">Manage transactions</div></a>
+        <a href="/users"><div class="admin-btn">Manage users</div></a>
     </div>
     <div class="wrapper">
-            <a href=""><div class="admin-btn">Add a book</div></a>
-            <a href=""><div class="admin-btn">Remove a book</div></a>
+            <a href="/books/add"><div class="admin-btn">Add a book</div></a>
+            <a href="/books/remove"><div class="admin-btn">Remove a book</div></a>
     </div>
+
     <div class="objective">
         <h2>Objective:</h2>
-        <a href="#">Click for hint</a>
+        <button class="hint-btn" onclick="openForm()">Click for hint</button>
     </div>
+    <div class="popup-container">
+      <div class="hint" id="hint_popup">
+        <p>Type hints here</p>
+        <button class="hint-btn" onclick="closeForm()">Close</button>
+      </div>
+    </div>
+    <script>
+        function openForm() {
+            document.getElementById("hint_popup").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("hint_popup").style.display = "none";
+        }
+    </script>
+
+
 </body>
 </html>
