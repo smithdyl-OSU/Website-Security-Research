@@ -1,15 +1,13 @@
 <html>
-
 <body>
     <nav class="nav-bar">
-        <p><a href="/account" id="nav-link">My Account</a></p>
+        <p><a href="/login" id="nav-link">My Account</a></p>
     </nav>
     <div class="main-bar">
         <div>
             <form action="/search" method="get">
                 <h1 id="search-title">Search Catalog</h1>
-                <input type="text" name="request" value="" size="20" maxlength="128" placeholder="Search books here"
-                    id="search-bar">
+                <input type="text" name="request" value="" size="20" maxlength="128" placeholder="Search books here" id="search-bar">
                 <input type="submit" value="search" id="search-btn">
             </form>
         </div>
@@ -53,18 +51,32 @@
                 <tr>
                     <td>Sunday</td>
                     <td>9:00 AM - 8:00 PM</td>
-                </tr>
+                </tr>   
             </table>
         </div>
     </div>
     <div class="objective">
         <h2>Objective:</h2>
-        <a href="#">Click for hint</a>
+        <button class="hint-btn" onclick="openForm()">Click for hint</button>
+    </div>
+    <div class="popup-container">
+      <div class="hint" id="hint_popup">
+        <p>Type hints here</p>
+        <button class="hint-btn" onclick="closeForm()">Close</button>
+      </div>
     </div>
     <footer>
-        <a href="#">About Us</a>
+        <a href="#" >About Us</a>
         <a href="#">Contact Us</a>
     </footer>
-</body>
+    <script>
+        function openForm() {
+            document.getElementById("hint_popup").style.display = "block";
+        }
 
+        function closeForm() {
+            document.getElementById("hint_popup").style.display = "none";
+        }
+    </script>
+</body>
 </html>

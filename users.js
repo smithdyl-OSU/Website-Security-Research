@@ -25,7 +25,7 @@ module.exports = function () {
                 res.end();
             }
             context.user = results[0];
-            //console.log(context.user)
+            console.log(context.user)
             complete();
         });
     }
@@ -46,8 +46,8 @@ module.exports = function () {
     const get_user_axios_email = async (id) => {
         const resp = await axios.get('http://localhost:3000/users/email/' + email)
         console.log(resp.data);
-        return (resp.data);
-    };
+        return(resp.data);
+       };
 
     /*Display all Users. */
 
@@ -90,7 +90,7 @@ module.exports = function () {
         function complete() {
             callbackCount++;
             if (callbackCount >= 1) {
-                //console.log(context);
+                console.log(context);
                 res.status(200).send(context);
             }
 

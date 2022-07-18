@@ -3,17 +3,32 @@
 <body>
     <h1 id="login-title">Create New Account</h1>
     <div class="form-background">
-        <form action="/newuser" method="POST">
-            <input type="text" name="createUsername" id="createUsername" placeholder="Create Username" required>
-            <input type="text" name="email" id="email" placeholder="Email" required>
-            <input type="text" name="createPassword" id="createPassword" placeholder="Create Password" required>
+        <form action="/register" method="POST">
+            <input type="text" name="create_username" id="create_username" placeholder="Create Username">
+            <input type="text" name="email" id="email" placeholder="Email">
+            <input type="text" name="create_password" id="create_password" placeholder="Create Password">
             <button>Submit</button>
         </form>
     </div>
     <div class="objective">
         <h2>Objective:</h2>
-        <a href="#">Click for hint</a>
+        <button class="hint-btn" onclick="openForm()">Click for hint</button>
     </div>
+    <div class="popup-container">
+        <div class="hint" id="hint_popup">
+            <p>Type hints here</p>
+            <button class="hint-btn" onclick="closeForm()">Close</button>
+        </div>
+    </div>
+    <script>
+        function openForm() {
+            document.getElementById("hint_popup").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("hint_popup").style.display = "none";
+        }
+    </script>
 </body>
 
 </html>

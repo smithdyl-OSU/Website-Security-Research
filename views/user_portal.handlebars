@@ -1,16 +1,60 @@
 <html>
+{{#each foo}}
+{{this}}
+{{/each}}
+
+
 <body>
     <nav class="nav-bar">
-        <p><a href="/index" id="nav-link">Logout</a></p>
+        <p><a href="/logout" id="nav-link">Logout</a></p>
     </nav>
     <div class="wrapper">
         <div id="user-info">
-            <h3>Welcome, (Name)!</h3>
-            <p><a href="">Update Profile</a></p>
+            <h3>Welcome, {{user_name}}!</h3>
         </div>
         <div id="user-books">
             <h3>Loaned Books</h3>
+            <div>
+                {{#if search}}
+                <table>
+                    <tbody>
+                        <thead>
+                            <th>Book Title</th>
+                        </thead>
+
+                        {{#each search}}
+                        <tr>
+                            <td>{{book_title}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{else}}
+                <p>No results found</p>
+                {{/if}}
+            </div>
         </div>
     </div>
+
+    <div class="objective">
+        <h2>Objective:</h2>
+        <button class="hint-btn" onclick="openForm()">Click for hint</button>
+    </div>
+    <div class="popup-container">
+        <div class="hint" id="hint_popup">
+            <p>Type hints here</p>
+            <button class="hint-btn" onclick="closeForm()">Close</button>
+        </div>
+    </div>
+    <script>
+        function openForm() {
+            document.getElementById("hint_popup").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("hint_popup").style.display = "none";
+        }
+    </script>
 </body>
+
 </html>

@@ -29,7 +29,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Users`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Users` (
-  `user_id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
   `user_name` VARCHAR(45) NULL,
   `user_role` VARCHAR(45) NULL,
   `user_email` VARCHAR(45) NULL,
