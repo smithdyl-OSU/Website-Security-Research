@@ -4,6 +4,7 @@
 */
 
 var express = require('express');
+var session = require('express-session');
 var mysql = require('./dbcon.js');
 var bodyParser = require('body-parser');
 
@@ -17,6 +18,7 @@ var handlebars = require('express-handlebars').create({
 app.engine('handlebars', handlebars.engine);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('public'));
+app.use(session({ secret: 'secret' }));
 app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]);
 app.set('mysql', mysql);
@@ -25,38 +27,63 @@ app.use('/transactions', require('./transactions.js'));
 app.use('/users', require('./users.js'));
 app.use('/books', require('./books.js'));
 app.use('/search', require('./search.js'));
+app.use('/login', require('./login.js'));
+app.use('/logout', require('./login.js'));
+app.use('/register', require('./register.js'));
 
 app.use('/', express.static('public'));
 
 // Load the Home page
 app.get('/', function (req, res) {
   let context = {};
+  // Establish session
+  let sess = req.session;
+  if (!sess.email || !sess.username) {
+    sess.email;
+    sess.username;
+  }
   res.render('index', context);
 });
 
 // Load login page
 app.get('/login', function (req, res) {
   let context = {};
-  res.render('login', context);
+  let sess = req.session;
+  if (sess.email && sess.username) {
+    res.render('user_portal', context);
+  } else {
+    res.render('login', context);
+  }
+});
+
+// Logout user
+app.get('/logout', function (req, res) {
+  // Discard user's session
+  req.session.destroy((err) => {
+    if (err) {
+      return console.log(err);
+    }
+    res.redirect('/');
   });
+});
 
 // Load registration page
 app.get('/register', function (req, res) {
   let context = {};
   res.render('register', context);
-  });
+});
 
 // Load user profile page
 app.get('/user_portal', function (req, res) {
   let context = {};
   res.render('user_portal', context);
-  });
+});
 
 // Load admin profile page
 app.get('/admin', function (req, res) {
   let context = {};
   res.render('admin', context);
-  });
+});
 
 app.use(function (req, res) {
   res.status(404);

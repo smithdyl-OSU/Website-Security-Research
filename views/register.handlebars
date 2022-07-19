@@ -1,11 +1,12 @@
 <html>
+
 <body>
     <h1 id="login-title">Create New Account</h1>
     <div class="form-background">
-        <form action="/users" method="POST">
-            <input type="text" name="create-username" id="create-username" placeholder="Create Username">
+        <form action="/register" method="POST">
+            <input type="text" name="create_username" id="create_username" placeholder="Create Username">
             <input type="text" name="email" id="email" placeholder="Email">
-            <input type="text" name="create-password" id="create-password" placeholder="Create Password">
+            <input type="text" name="create_password" id="create_password" placeholder="Create Password">
             <button>Submit</button>
         </form>
     </div>
@@ -14,10 +15,10 @@
         <button class="hint-btn" onclick="openForm()">Click for hint</button>
     </div>
     <div class="popup-container">
-      <div class="hint" id="hint_popup">
-        <p>Type hints here</p>
-        <button class="hint-btn" onclick="closeForm()">Close</button>
-      </div>
+        <div class="hint" id="hint_popup">
+            <p>Type hints here</p>
+            <button class="hint-btn" onclick="closeForm()">Close</button>
+        </div>
     </div>
     <script>
         function openForm() {
@@ -29,4 +30,5 @@
         }
     </script>
 </body>
+
 </html>

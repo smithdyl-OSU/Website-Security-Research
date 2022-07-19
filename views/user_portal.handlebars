@@ -6,7 +6,7 @@
 
 <body>
     <nav class="nav-bar">
-        <p><a href="/index" id="nav-link">Logout</a></p>
+        <p><a href="/logout" id="nav-link">Logout</a></p>
     </nav>
     <div class="wrapper">
         <div id="user-info">
@@ -17,17 +17,17 @@
             <div>
                 {{#if search}}
                 <table>
-                <tbody>
-                    <thead>
-                        <th>Book Title</th>
-                    </thead>
+                    <tbody>
+                        <thead>
+                            <th>Book Title</th>
+                        </thead>
 
-                    {{#each search}}
-                    <tr>
-                        <td>{{book_title}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
+                        {{#each search}}
+                        <tr>
+                            <td>{{book_title}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
                 </table>
                 {{else}}
                 <p>No results found</p>
@@ -35,16 +35,16 @@
             </div>
         </div>
     </div>
-    
+
     <div class="objective">
         <h2>Objective:</h2>
         <button class="hint-btn" onclick="openForm()">Click for hint</button>
     </div>
     <div class="popup-container">
-      <div class="hint" id="hint_popup">
-        <p>Type hints here</p>
-        <button class="hint-btn" onclick="closeForm()">Close</button>
-    </div>
+        <div class="hint" id="hint_popup">
+            <p>Type hints here</p>
+            <button class="hint-btn" onclick="closeForm()">Close</button>
+        </div>
     </div>
     <script>
         function openForm() {
@@ -56,4 +56,5 @@
         }
     </script>
 </body>
+
 </html>
