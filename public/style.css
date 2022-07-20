@@ -182,12 +182,20 @@ button {
     margin: auto;
 }
 
-#user-books {
-    border: 1px solid lightgray;
-    height: 300px;
-    margin: auto;
-    text-decoration: underline;
-    width: 450px;
+#user-books td, th {
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+    table-layout: auto;
+    text-align: left;
+    width: 100%;
+}
+
+#user-books td, thead th:nth-child(1) {
+    width: 40%;
+}
+
+#user-books td, thead th:nth-child(2) {
+    width: 60%;
 }
 
 /*Style for Admin Portal Page*/
