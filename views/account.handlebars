@@ -10,28 +10,30 @@
     </nav>
     <div class="wrapper">
         <div id="user-info">
-            <h3>Welcome, {{user_name}}!</h3>
+            <h3>Welcome, {{username}}!</h3>
         </div>
-        <div id="user-books">
+        <div class="results">
             <h3>Loaned Books</h3>
             <div>
-                {{#if search}}
-                <table>
+            {{#if transactions}}
+                <table id="user-books">
                     <tbody>
                         <thead>
                             <th>Book Title</th>
+                            <th>Due Date</th>
                         </thead>
-
-                        {{#each search}}
+                        {{#each transactions}}
                         <tr>
                             <td>{{book_title}}</td>
+                            <td>{{date}}</td>
                         </tr>
                         {{/each}}
                     </tbody>
                 </table>
-                {{else}}
+
+            {{else}}
                 <p>No results found</p>
-                {{/if}}
+            {{/if}}
             </div>
         </div>
     </div>
