@@ -2,7 +2,7 @@ module.exports = function () {
     var express = require('express');
     var router = express.Router();
 
-    //
+    // Searches for book title that matches keyword entered by user
     function get_results(res, keyword, mysql, context, complete) {
         var sql = "SELECT * FROM Books WHERE book_title LIKE '%" + keyword + "%'";
         mysql.pool.query(sql, function (error, results, fields) {
@@ -10,7 +10,7 @@ module.exports = function () {
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.search = results; 
+            context.search = results;
             complete();
         });
     }

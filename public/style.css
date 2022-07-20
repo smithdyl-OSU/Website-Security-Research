@@ -1,5 +1,5 @@
 body {
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 /*Style for Home Page*/
@@ -22,7 +22,7 @@ h3 {
 }
 
 .nav-bar {
-    background-color: rgb(240,240,240);
+    background-color: rgb(240, 240, 240);
     background-image: url("logo.png");
     background-size: 200px;
     background-repeat: no-repeat;
@@ -61,7 +61,7 @@ h3 {
     width: 100px;
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: row;
 }
@@ -72,7 +72,7 @@ h3 {
     margin: 5px;
     padding: 5px;
     border: 2px solid rgb(205, 216, 228);
-  }
+}
 
 #hours {
     border: 2px solid rgb(205, 216, 228);
@@ -91,30 +91,30 @@ h3 {
 .objective {
     align-items: center;
     color: cornflowerblue;
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-bottom: 10px;    
+    padding-bottom: 10px;
 }
 
 footer {
     align-items: center;
-    background-color: rgb(45,45,45);
+    background-color: rgb(45, 45, 45);
     display: flex;
     justify-content: center;
 }
 
-footer a{
+footer a {
     color: white;
     padding-top: 25px;
     padding-bottom: 25px;
-    text-decoration: none; 
+    text-decoration: none;
 }
 
 /*Style for Login Page*/
 
 #login-title {
-    color: rgb(45,45,45);
+    color: rgb(45, 45, 45);
     text-align: center;
 }
 
@@ -130,7 +130,7 @@ footer a{
 
 form {
 
-    display: block;    
+    display: block;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
@@ -163,7 +163,7 @@ button {
     justify-content: center;
 }
 
-.login-links a{
+.login-links a {
     padding-top: 25px;
     color: slategray;
 }
@@ -182,12 +182,23 @@ button {
     margin: auto;
 }
 
-#user-books {
-    border: 1px solid lightgray;
-    height: 300px;
-    margin: auto;
-    text-decoration: underline;
-    width: 450px;
+#user-books td,
+th {
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+    table-layout: auto;
+    text-align: left;
+    width: 100%;
+}
+
+#user-books td,
+thead th:nth-child(1) {
+    width: 40%;
+}
+
+#user-books td,
+thead th:nth-child(2) {
+    width: 60%;
 }
 
 /*Style for Admin Portal Page*/
@@ -197,7 +208,7 @@ button {
     background-color: lightgray;
     border: 1px solid lightgray;
     color: darkslategray;
-    display:inline-flex;
+    display: inline-flex;
     height: 75px;
     justify-content: center;
     margin-bottom: 15px;
@@ -211,7 +222,7 @@ button {
 
 /*Style for database add forms*/
 .db-add {
-    display: block;    
+    display: block;
     margin-left: auto;
     margin-right: auto;
     max-width: 400px;
@@ -234,11 +245,11 @@ button {
 #db-table1 thead th:nth-child(1) {
     width: 10%;
 }
-  
-#db-table1  thead th:nth-child(2) {
+
+#db-table1 thead th:nth-child(2) {
     width: 35%;
 }
-  
+
 #db-table1 thead th:nth-child(3) {
     width: 10%;
 }
@@ -253,19 +264,19 @@ button {
 #db-table2 thead th:nth-child(1) {
     width: 10%;
 }
-  
-#db-table2  thead th:nth-child(2) {
+
+#db-table2 thead th:nth-child(2) {
     width: 10%;
 }
-  
+
 #db-table2 thead th:nth-child(3) {
     width: 10%;
 }
-  
+
 #db-table2 thead th:nth-child(4) {
     width: 30%;
 }
-  
+
 
 /*Style for users table*/
 #db-table3 {
@@ -277,19 +288,19 @@ button {
 #db-table3 thead th:nth-child(1) {
     width: 10%;
 }
-  
-#db-table3  thead th:nth-child(2) {
+
+#db-table3 thead th:nth-child(2) {
     width: 20%;
 }
-  
+
 #db-table3 thead th:nth-child(3) {
     width: 10%;
 }
-  
+
 #db-table3 thead th:nth-child(4) {
     width: 20%;
 }
-  
+
 #db-table3 thead th:nth-child(5) {
     width: 10%;
 }
@@ -311,7 +322,8 @@ button {
     width: 800px;
 }
 
-#results-table td, th {
+#results-table td,
+th {
     border-bottom: 1px solid lightgray;
     padding: 10px;
     table-layout: auto;
@@ -323,7 +335,7 @@ button {
 .hint-btn {
     cursor: pointer;
     width: 120px;
- 
+
 }
 
 .hint-btn:hover {
@@ -336,8 +348,8 @@ button {
     text-align: center;
     width: 100%;
 
-  }
-  
+}
+
 .hint {
     background-color: whitesmoke;
     border: 3px solid lightgray;

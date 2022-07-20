@@ -30,6 +30,7 @@ app.use('/search', require('./search.js'));
 app.use('/login', require('./login.js'));
 app.use('/logout', require('./login.js'));
 app.use('/register', require('./register.js'));
+app.use('/account', require('./account.js'));
 
 app.use('/', express.static('public'));
 
@@ -71,12 +72,6 @@ app.get('/logout', function (req, res) {
 app.get('/register', function (req, res) {
   let context = {};
   res.render('register', context);
-});
-
-// Load user profile page
-app.get('/user_portal', function (req, res) {
-  let context = {};
-  res.render('user_portal', context);
 });
 
 // Load admin profile page

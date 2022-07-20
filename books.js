@@ -118,8 +118,21 @@ module.exports = function () {
                 if (error) {
                     console.log(error);
                 } else {
-                    console.log(result);
-                    console.log(result.Books.Book);
+                    const books = result.Books.Book;
+                    var mysql = req.app.get('mysql');
+                    for (const book of books) {
+                        console.log(book);
+                        var sql = "INSERT INTO Books (book_id, book_title, book_qty) VALUES (?, ?, ?)";
+                        var inserts = [parseInt(book.Id[0]), book.Title[0], parseInt(book.Quantity[0])];
+                        sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
+                            if (error) {
+                                console.log(JSON.stringify(error))
+                                res.write(JSON.stringify(error));
+                                res.end();
+                            }
+                        });
+                    }
+                    // console.log(result.Books.Book);
                 }
             })
         } catch (err) {
