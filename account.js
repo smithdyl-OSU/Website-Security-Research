@@ -29,6 +29,7 @@ module.exports = function () {
                     context.username = sess.username;
                     res.render('account', context);
                 }
+
             }
         } else {
             res.render('login', context);

@@ -51,7 +51,7 @@ app.get('/login', function (req, res) {
   let context = {};
   let sess = req.session;
   if (sess.email && sess.username) {
-    res.render('user_portal', context);
+    res.redirect('account');
   } else {
     res.render('login', context);
   }
