@@ -26,9 +26,10 @@ module.exports = function () {
             function complete() {
                 callbackCount++;
                 if (callbackCount >= 1) {
-                context.username = sess.username; 
-                res.render('account', context);
-                } 
+                    context.username = sess.username;
+                    res.render('account', context);
+                }
+
             }
         } else {
             res.render('login', context);

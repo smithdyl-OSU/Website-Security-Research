@@ -27,6 +27,15 @@
     </form>
 </div>
 <br />
+
+<form method="POST" action="/books/upload" enctype="multipart/form-data">
+    <div>
+        <label>Select an XML file to upload multiple books at once:</label>
+    </div>
+    <input type="file" id="file" name="xml_file">
+    <input type="submit" value="Submit File">
+</form>
+
 {{/if}}
 {{#if modify}}
 <div class="db-view">
@@ -53,4 +62,5 @@
     </table>
 </div>
 {{/if}}
+
 </html>

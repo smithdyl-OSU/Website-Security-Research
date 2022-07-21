@@ -10,7 +10,7 @@ module.exports = function () {
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.search = results; 
+            context.search = results;
             complete();
         });
     }
