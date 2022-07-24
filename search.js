@@ -22,6 +22,7 @@ module.exports = function () {
         var context = {};
         var mysql = req.app.get('mysql');
         get_results(res, keyword, mysql, context, complete);
+        context.keyword = keyword;
         function complete() {
             callbackCount++;
             if (callbackCount >= 1) {

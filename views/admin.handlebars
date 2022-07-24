@@ -1,7 +1,7 @@
 <html>
 <body>
     <nav class="nav-bar">
-        <p><a href="/index" id="nav-link">Logout</a></p>
+        <p><a href="/logout" id="nav-link">Logout</a></p>
     </nav>
     <div class="wrapper">
         <h2>Admin Portal</h2>
@@ -14,12 +14,15 @@
     </div>
 
     <div class="objective">
-        <h2>Objective:</h2>
+        <h2>Objective: XSS - Display an alert to visitors on the search results page.</h2>
         <button class="hint-btn" onclick="openForm()">Click for hint</button>
     </div>
     <div class="popup-container">
       <div class="hint" id="hint_popup">
-        <p>Type hints here</p>
+        <p>1. Select the "Add a Book" option</p>
+        <p>2. Inject the following script to the book_title: &lt;script&gt; alert("XSS success!") &lt;/script&gt;</p>
+        <p>3. Navigate to the home page and click the search button</p>
+        <p>4. You should see the script execution on the search results page.</p>
         <button class="hint-btn" onclick="closeForm()">Close</button>
       </div>
     </div>

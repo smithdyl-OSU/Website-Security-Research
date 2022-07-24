@@ -334,7 +334,6 @@ th {
 .hint-btn {
     cursor: pointer;
     width: 120px;
-
 }
 
 .hint-btn:hover {
@@ -346,7 +345,6 @@ th {
     position: relative;
     text-align: center;
     width: 100%;
-
 }
 
 .hint {
@@ -357,5 +355,6 @@ th {
     position: fixed;
     left: 50%;
     top: 50%;
+    text-align: left;
     transform: translate(-50%, 5%);
 }
