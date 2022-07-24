@@ -39,6 +39,7 @@ module.exports = function () {
                     // User exists, authenticated
                     sess.username = result.user_name;
                     sess.email = result.user_email;
+                    sess.role = result.user_role;
                     console.log(sess.username, sess.email);
                     console.log('success');
                     res.redirect('/')

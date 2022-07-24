@@ -50,7 +50,9 @@ app.get('/', function (req, res) {
 app.get('/login', function (req, res) {
   let context = {};
   let sess = req.session;
-  if (sess.email && sess.username) {
+  if (sess.role == "admin") {
+    res.redirect('admin');
+  } else if (sess.email && sess.username) {
     res.redirect('account');
   } else {
     res.render('login', context);
@@ -77,7 +79,12 @@ app.get('/register', function (req, res) {
 // Load admin profile page
 app.get('/admin', function (req, res) {
   let context = {};
-  res.render('admin', context);
+  let sess = req.session;
+  if (sess.role == "admin") {
+    res.render('admin', context);
+  } else {
+    res.send("Unauthorized access.")
+  } 
 });
 
 app.use(function (req, res) {
